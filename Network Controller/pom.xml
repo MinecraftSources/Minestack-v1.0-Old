@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>MN2-Docker</artifactId>
+        <artifactId>MN2Docker</artifactId>
         <groupId>com.rmb938.mn2.docker</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
@@ -67,6 +67,7 @@
                                 <includes>
                                     <include>org.apache.logging.log4j:log4j-core:*</include>
                                     <include>org.apache.logging.log4j:log4j-api:*</include>
+                                    <include>com.rmb938.mn2.docker:MN2Etcd:*</include>
                                 </includes>
                             </artifactSet>
                         </configuration>
@@ -76,10 +77,17 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>snapshots</id>
+            <url>http://repo.rmb938.com/repository/snapshots/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>com.rmb938.mn2.docker</groupId>
-            <artifactId>MN2Ectd</artifactId>
+            <artifactId>MN2Etcd</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>

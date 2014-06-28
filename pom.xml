@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.rmb938.mn2.docker</groupId>
-    <artifactId>MN2-Docker</artifactId>
+    <artifactId>MN2Docker</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
     <modules>
@@ -22,6 +22,5 @@
             <url>http://repo.rmb938.com/repository/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
-
 
 </project>
