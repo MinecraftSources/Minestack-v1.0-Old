@@ -11,6 +11,17 @@
 
     <artifactId>MN2NetworkController</artifactId>
 
+    <distributionManagement>
+        <repository>
+            <id>internal</id>
+            <url>http://repo.rmb938.com/repository/internal/</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <url>http://repo.rmb938.com/repository/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <build>
         <finalName>${project.artifactId}-${project.version}</finalName>
         <defaultGoal>clean deploy</defaultGoal>
@@ -89,11 +100,6 @@
             <groupId>com.rmb938.mn2.docker</groupId>
             <artifactId>MN2Etcd</artifactId>
             <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.0-rc1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
