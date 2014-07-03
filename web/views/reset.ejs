@@ -8,17 +8,22 @@
 <div class="jumbotron">
     <div class="container">
         <div class="col-sm-6 col-sm-offset-3">
-            <h1><span class="fa fa-forgot-password"></span>Forgot Password</h1>
+            <h1><span class="fa fa-reset-password"></span>Reset Password</h1>
 
             <% if (errMessage.length > 0) { %>
             <div class="alert alert-danger"><%= errMessage %></div>
             <% } %>
 
             <!-- FORGOT FORM -->
-            <form action="/login/forgot" method="post">
+            <form action="/login/reset" method="post">
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="text" class="form-control" name="email">
+                    <label>New Password</label>
+                    <input type="password" class="form-control" name="password">
+                </div>
+
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" class="form-control" name="confirm">
                 </div>
 
                 <button type="submit" class="btn btn-warning">Reset Password</button>
