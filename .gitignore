@@ -3,5 +3,5 @@
 *.iws
 log/
 target/
-node_modules/
+web/node_modules/
 config.json
