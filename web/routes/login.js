@@ -6,7 +6,7 @@ var crypto = require('crypto');
 var User = require('../models/user');
 
 router.get('/', function (req, res) {
-    res.render('login', { title: 'Login', errMessage: req.flash('errMessage') });
+    res.render('login', { title: 'Login', errMessage: req.flash('errMessage'), successMessage: req.flash('successMessage') });
 });
 
 router.post('/', passport.authenticate('local-login', {

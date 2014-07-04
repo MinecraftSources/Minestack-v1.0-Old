@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "MN Squared",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -21,6 +21,7 @@
     "express-session": "~1.0.0",
     "connect-flash": "~0.1.1",
     "async": "latest",
-    "express-validator": "latest"
+    "express-validator": "latest",
+    "node-etcd": "latest"
   }
 }

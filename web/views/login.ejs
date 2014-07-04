@@ -3,7 +3,7 @@
 <% include header.ejs %>
 <body>
 
-<% include navbar.ejs %>
+<% include top-navbar.ejs %>
 
 <div class="jumbotron">
     <div class="container">
@@ -13,6 +13,10 @@
             <!-- show any messages that come back with authentication -->
             <% if (errMessage.length > 0) { %>
             <div class="alert alert-danger"><%= errMessage %></div>
+            <% } %>
+
+            <% if (successMessage.length > 0) { %>
+            <div class="alert alert-success"><%= successMessage %></div>
             <% } %>
 
             <!-- LOGIN FORM -->

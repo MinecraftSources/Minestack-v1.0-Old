@@ -3,27 +3,62 @@
 <% include header.ejs %>
 <body>
 
-<% include navbar.ejs %>
+<% include top-navbar.ejs %>
 
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
-    <div class="container">
-        <h1>Hello, world!</h1>
+<div class="container-fluid">
+    <div class="row">
+        <% include left-navbar.ejs %>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">Dashboard</h1>
 
-        <p>This is a template for a simple marketing or informational
-            website. It includes a large callout called a jumbotron and three
-            supporting pieces of content. Use it as a starting point to create
-            something more unique.</p>
+            <div class="row placeholders">
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
+                    <h4>Online Players</h4>
+                    <span class="text-muted">0/100</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
+                    <h4>Online Nodes</h4>
+                    <span class="text-muted">10/10</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
+                    <h4>Memory Usage</h4>
+                    <span class="text-muted">0GB / 128GB</span>
+                </div>
+                <div class="col-xs-6 col-sm-3 placeholder">
+                    <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
+                    <h4>Label</h4>
+                    <span class="text-muted">Something else</span>
+                </div>
+            </div>
 
-        <p>
-            <a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a>
-        </p>
+            <h2 class="sub-header">Running Servers</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>UUID</th>
+                        <th>Server Type</th>
+                        <th>Players</th>
+                        <th>Node:Port</th>
+                        <th>Service</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1,001</td>
+                        <td>Lorem</td>
+                        <td>ipsum</td>
+                        <td>dolor</td>
+                        <td>sit</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-</div>
-
-<div class="container">
-    <% include content.ejs %>
-    <hr>
 
 </div>
 <% include footer.ejs %>

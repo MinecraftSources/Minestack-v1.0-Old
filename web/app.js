@@ -10,9 +10,9 @@ var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
 var expressValidator = require('express-validator');
+var Etcd = require('node-etcd');
 
 
-var configDB = require('./config/database.js');
 var routes = require('./routes/index');
 var login = require('./routes/login');
 var setup = require('./routes/setup');
@@ -22,7 +22,19 @@ var app = express();
 
 require('./config/passport.js')(passport);
 
-//mongoose.connect(configDB.url);
+app.locals.mongoose = mongoose;
+
+var etcd = new Etcd('172.17.8.101');
+app.locals.etcd = etcd;
+if (!process.env.MONGO_URL) {
+    console.error('Please set up the MONGO_URL environment variable');
+} else {
+    mongoose.connect(process.env.MONGO_URL, function (error) {
+        if (error) {
+            console.error(error);
+        }
+    });
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,7 +48,7 @@ app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session( { secret: 'thisismysecret' } ));
+app.use(session({ secret: 'thisismysecret' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -47,7 +59,7 @@ app.use('/setup', setup);
 app.use('/api', api);
 
 /// catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -58,7 +70,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
+    app.use(function (err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
             title: "Error",
@@ -70,7 +82,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         title: "Error",
