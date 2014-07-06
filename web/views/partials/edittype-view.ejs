@@ -1,0 +1,72 @@
+<h1 class="page-header">{{ action }} Server Type</h1>
+
+<% if (errMessage.length > 0) { %>
+<div class="alert alert-danger"><%= errMessage %></div>
+<% } %>
+<% if (successMessage.length > 0) { %>
+<div class="alert alert-success"><%= successMessage %></div>
+<% } %>
+
+<form name="editServer" ng-submit="save()">
+    <div class="form-group">
+        <label for="inputName">Name</label>
+        <input type="text" class="form-control" name="name" ng-model = "newType.local.name" id="inputName" maxlength="50" placeholder="Name" value="{{ newType.local.name }}" required>
+    </div>
+    <div class="form-group">
+        <label for="inputPlayers">Players</label>
+        <input type="number" class="form-control" name="players" min="1" ng-model = "newType.local.players" id="inputPlayers" placeholder="Players" value="{{ newType.local.players }}" required>
+    </div>
+    <div class="form-group">
+        <label for="inputMemory">Memory (MB)</label>
+        <input type="number" class="form-control" name="memory" min="512" ng-model = "newType.local.memory" id="inputMemory" placeholder="Memory" value="{{ newType.local.memory }}" required>
+    </div>
+    <div class="form-group">
+        <label for="inputNumber">Number</label>
+        <input type="number" class="form-control" name="number" min="1" ng-model = "newType.local.number" id="inputNumber" placeholder="Number of Servers" value="{{ newType.local.number }}" required>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Plugin Name</th>
+                <th>Plugin Config</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="plugin in newType.local.plugins">
+                <td>{{ plugin.name }}</td>
+                <td>{{ plugin.config }}</td>
+                <td><button ng-click="removePlugin(plugin)" type="button" class="btn btn-danger btn-xms">
+                    <span class="glyphicon glyphicon glyphicon-minus"></span>
+                </button></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="form-group">
+
+            <div class="col-xs-4">
+                <label for="plugin">Plugin</label>
+                <select ng-model="plugin.name" name="plugin" id="plugin">
+                    <option ng-repeat="plugin in plugins">{{ plugin.local.name }}</option>
+                </select>
+            </div>
+            <div class="col-xs-4">
+                <label for="pluginConfig">Config</label>
+                <select ng-model="plugin.config" name="pluginConfig" id="pluginConfig">
+                    <option>config</option>
+                </select>
+            </div>
+            <div class="col-xs-4">
+                <button ng-click="addPlugin()" type="button" class="btn btn-success btn-xms">
+                    <span class="glyphicon glyphicon glyphicon-plus"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <button type="submit" class="btn btn-warning">Save</button>
+        <button ng-hide="add" ng-click="remove()" type="button" class="btn btn-danger">Delete</button>
+    </div>
+</form>

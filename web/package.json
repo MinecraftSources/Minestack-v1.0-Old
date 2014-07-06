@@ -1,5 +1,5 @@
 {
-  "name": "MN Squared",
+  "name": "MNSquared",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -15,8 +15,8 @@
     "debug": "~0.7.4",
     "ejs": "~0.8.5",
     "mongoose": "~3.8.12",
-    "passport": "~0.2.0",
-    "passport-local": "~1.0.0",
+    "passport": "latest",
+    "passport-local": "latest",
     "bcrypt-nodejs": "latest",
     "express-session": "~1.0.0",
     "connect-flash": "~0.1.1",

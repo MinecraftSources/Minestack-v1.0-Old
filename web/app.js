@@ -53,10 +53,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-app.use('/', routes);
-app.use('/login', login);
-app.use('/setup', setup);
+//app.use('/login', login);
 app.use('/api', api);
+app.use('/', routes);
+app.use('/setup', setup);
 
 /// catch 404 and forward to error handler
 app.use(function (req, res, next) {

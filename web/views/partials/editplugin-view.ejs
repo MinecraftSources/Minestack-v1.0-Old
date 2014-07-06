@@ -1,0 +1,61 @@
+<h1 class="page-header">{{ action }} Plugin</h1>
+
+<% if (errMessage.length > 0) { %>
+<div class="alert alert-danger"><%= errMessage %></div>
+<% } %>
+<% if (successMessage.length > 0) { %>
+<div class="alert alert-success"><%= successMessage %></div>
+<% } %>
+
+<form name="editPlugin" ng-submit="save()">
+    <div class="form-group">
+        <label for="inputName">Name</label>
+        <input type="text" class="form-control" name="name" ng-model = "newPlugin.local.name" id="inputName" maxlength="50" placeholder="Name" value="{{ newPlugin.local.name }}" required>
+    </div>
+    <div class="form-group">
+        <label for="inputGit">Git Clone URL</label>
+        <input type="text" class="form-control" name="git" ng-model = "newPlugin.local.git" id="inputGit" placeholder="http://example.com/example/example.git" value="{{ newPlugin.local.git }}" required>
+    </div>
+    <div class="form-group">
+        <label for="inputFolder">Config Folder Name</label>
+        <input type="text" class="form-control" name="git" ng-model = "newPlugin.local.folder" id="inputFolder" placeholder="Config Folder Name" value="{{ newPlugin.local.folder }}" required>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Config Name</th>
+                <th>Config Folder Location</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="config in newPlugin.local.configs">
+                <td>{{ config.name }}</td>
+                <td>{{ config.location }}</td>
+                <td><button ng-click="removeConfig(config)" type="button" class="btn btn-danger btn-xms">
+                    <span class="glyphicon glyphicon glyphicon-minus"></span>
+                </button></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="form-group">
+            <div class="col-xs-4">
+                <input type="text" ng-model="config.name" name="cName" id="cName" placeholder="confg 1">
+            </div>
+            <div class="col-xs-4">
+                <input type="text" ng-model="config.location" name="cfLocation" id="cfLocation" placeholder="configs/config1">
+            </div>
+            <div class="col-xs-4">
+                <button ng-click="addConfig()" type="button" class="btn btn-success btn-xms">
+                    <span class="glyphicon glyphicon glyphicon-plus"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12">
+        <button type="submit" class="btn btn-warning">Save</button>
+        <button ng-hide="add" ng-click="remove()" type="button" class="btn btn-danger">Delete</button>
+    </div>
+</form>

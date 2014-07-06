@@ -57,7 +57,7 @@ router.post('/forgot', function (req, res) {
 });
 
 router.get('/reset/:token', function (req, res) {
-    User.findOne({ resetPasswordToken: req.param.token, resetPasswordExpires: { $gt: Date.now() }}, function (err, user) {
+    User.findOne({ resetPasswordToken: req.param("token"), resetPasswordExpires: { $gt: Date.now() }}, function (err, user) {
         if (!user) {
             req.flash('errMessage', 'Password reset token is invalid or has expired');
             return res.redirect('/login/forgot');
@@ -90,7 +90,7 @@ router.post('/reset/:token', function (req, res) {
             })
         },
         function(user, done) {
-            req.flash('errMessage', 'Success! Your password has been changed.')
+            req.flash('errMessage', 'Success! Your password has been changed.');
             done(err);
         }
     ], function (err) {
