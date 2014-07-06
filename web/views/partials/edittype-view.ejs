@@ -1,28 +1,31 @@
 <h1 class="page-header">{{ action }} Server Type</h1>
 
-<% if (errMessage.length > 0) { %>
-<div class="alert alert-danger"><%= errMessage %></div>
-<% } %>
-<% if (successMessage.length > 0) { %>
-<div class="alert alert-success"><%= successMessage %></div>
-<% } %>
+<div ng-show="hasError" class="alert alert-danger">{{ error }}</div>
 
-<form name="editServer" ng-submit="save()">
+<form name="editType" ng-submit="save()">
     <div class="form-group">
         <label for="inputName">Name</label>
-        <input type="text" class="form-control" name="name" ng-model = "newType.local.name" id="inputName" maxlength="50" placeholder="Name" value="{{ newType.local.name }}" required>
+        <input type="text" class="form-control" name="name" ng-pattern="/^[a-zA-Z0-9]+$/" ng-model = "newType.local.name" id="inputName" maxlength="50" placeholder="Name" value="{{ newType.local.name }}" required>
+        <span ng-show="editType.name.$error.required" class="help-block">A server type name is required.</span>
+        <span ng-show="editType.name.$error.pattern" class="help-block">Name can only container letters and numbers.</span>
     </div>
     <div class="form-group">
         <label for="inputPlayers">Players</label>
         <input type="number" class="form-control" name="players" min="1" ng-model = "newType.local.players" id="inputPlayers" placeholder="Players" value="{{ newType.local.players }}" required>
+        <span ng-show="editType.players.$error.required" class="help-block">Number of players is required.</span>
+        <span ng-show="editType.players.$error.min" class="help-block">A minimum of 1 player is required.</span>
     </div>
     <div class="form-group">
         <label for="inputMemory">Memory (MB)</label>
         <input type="number" class="form-control" name="memory" min="512" ng-model = "newType.local.memory" id="inputMemory" placeholder="Memory" value="{{ newType.local.memory }}" required>
+        <span ng-show="editType.memory.$error.required" class="help-block">Memory amount is required.</span>
+        <span ng-show="editType.memory.$error.min" class="help-block">A minimum of 512MB of memory is required.</span>
     </div>
     <div class="form-group">
         <label for="inputNumber">Number</label>
         <input type="number" class="form-control" name="number" min="1" ng-model = "newType.local.number" id="inputNumber" placeholder="Number of Servers" value="{{ newType.local.number }}" required>
+        <span ng-show="editType.number.$error.required" class="help-block">Number os servers is required.</span>
+        <span ng-show="editType.number.$error.min" class="help-block">A minimum of 1 server is required.</span>
     </div>
 
     <div class="table-responsive">
@@ -45,17 +48,14 @@
         </table>
 
         <div class="form-group">
-
             <div class="col-xs-4">
                 <label for="plugin">Plugin</label>
-                <select ng-model="plugin.name" name="plugin" id="plugin">
-                    <option ng-repeat="plugin in plugins">{{ plugin.local.name }}</option>
+                <select ng-model="plugin" name="plugin" id="plugin" ng-options="plugin.local.name for plugin in plugins">
                 </select>
             </div>
             <div class="col-xs-4">
                 <label for="pluginConfig">Config</label>
-                <select ng-model="plugin.config" name="pluginConfig" id="pluginConfig">
-                    <option>config</option>
+                <select ng-model="config" name="pluginConfig" id="pluginConfig" ng-options="config.name for config in plugin.local.configs">
                 </select>
             </div>
             <div class="col-xs-4">
@@ -64,9 +64,11 @@
                 </button>
             </div>
         </div>
+        <span ng-show="needsPlugin()" class="help-block">The MN2 Plugin is required.</span>
     </div>
     <div class="col-xs-12">
-        <button type="submit" class="btn btn-warning">Save</button>
+        <button type="submit" class="btn btn-warning" ng-disabled="editType.$invalid || needsPlugin()">Save</button>
+        <button ng-click="cancel()" type="button" class="btn btn-primary">Cancel</button>
         <button ng-hide="add" ng-click="remove()" type="button" class="btn btn-danger">Delete</button>
     </div>
 </form>

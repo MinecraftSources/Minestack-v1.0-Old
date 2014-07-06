@@ -15,7 +15,7 @@ router.get('/servers', function (req, res) {
         } else {
             body.node.nodes.forEach(function (node) {
                 var uuid = node.key.replace('/mn2/servers/', '');
-                servers.push({ uuid: uuid, type: node.value.type, players: node.value.players, node: node.value.node,  port: node.value.port, service: node.value.service });
+                servers.push({ uuid: uuid, type: node.value.type, players: node.value.players, node: node.value.node, port: node.value.port, service: node.value.service });
             });
         }
         servers.push({ uuid: 'fdhgfdhsdhd' });
@@ -97,7 +97,7 @@ router.get('/plugins/:plugin', function (req, res) {
                 if (plugin) {
                     done(error, plugin);
                 } else {
-                    done (error, { errorCode: 1, error: 'No such plugin '+req.param('plugin')});
+                    done(error, { errorCode: 1, error: 'No such plugin ' + req.param('plugin')});
                 }
             });
         }
@@ -112,18 +112,54 @@ router.post('/plugins/:plugin', function (req, res) {
 });
 
 router.delete('/plugins/:plugin', function (req, res) {
-    var id = req.param('plugin');
-    var resp = {
-        errorCode: 0,
-        error: ''
-    };
-    Plugin.remove({ _id: id}, function(error) {
-        if (error) {
-            resp.errorCode = 2;
-            resp.error = 'Database Error';
+    async.waterfall([
+        function (done) {
+            var id = req.param('plugin');
+            var resp = {
+                errorCode: 0,
+                error: ''
+            };
+            Plugin.findOne({ _id: id}, function (error, plugin) {
+                if (error) {
+                    resp.errorCode = 2;
+                    resp.error = 'Database Error finding plugin';
+                }
+                if (!plugin) {
+                    resp.errorCode = 1;
+                    resp.error = 'Cloud not find plugin ' + id;
+                }
+                done(error, resp, plugin);
+            });
+        },
+        function (resp, plugin, done) {
+            if (resp.errorCode == 0) {
+                Plugin.remove({ _id: plugin._id}, function (error) {
+                    if (error) {
+                        resp.errorCode = 2;
+                        resp.error = 'Database Error removing plugin';
+                    }
+                    done(error, resp, plugin);
+                });
+            } else {
+                done(null, resp, plugin);
+            }
+        },
+        function (resp, plugin, done) {
+            if (resp.errorCode == 0) {
+                ServerType.update({ 'local.plugins.name': plugin.local.name }, { '$pull': { 'local.plugins': { 'name': plugin.local.name } } }, { 'multi': true }, function (error) {
+                    if (error) {
+                        resp.errorCode = 2;
+                        resp.error = 'Database Error removing plugin from servers';
+                    }
+                    done(error, resp);
+                })
+            } else {
+                done(null, resp);
+            }
         }
+    ], function (error, resp) {
         res.send(resp);
-    })
+    });
 });
 
 router.post('/plugins', function (req, res) {
@@ -150,7 +186,7 @@ router.get('/serverTypes/:serverType', function (req, res) {
                 if (servertype) {
                     done(error, servertype);
                 } else {
-                    done (error, { errorCode: 1, error: 'No such server type '+req.param('serverType')});
+                    done(error, { errorCode: 1, error: 'No such server type ' + req.param('serverType')});
                 }
             });
         }
@@ -170,7 +206,7 @@ router.delete('/serverTypes/:serverType', function (req, res) {
         errorCode: 0,
         error: ''
     };
-    ServerType.remove({ _id: id}, function(error) {
+    ServerType.remove({ _id: id}, function (error) {
         if (error) {
             resp.errorCode = 2;
             resp.error = 'Database Error';
@@ -183,107 +219,121 @@ module.exports = router;
 
 function modifyType(req, res) {
     async.waterfall([
-        function(done) {
+        function (done) {
             var resp = {
                 errorCode: 0,
                 error: ''
             };
-            ServerType.find({ 'local.name': req.body.local.name }, function(error, servertypes) {
+            ServerType.find({ 'local.name': req.body.local.name }, function (error, servertypes) {
                 if (error) {
                     resp.errorCode = 2;
-                    resp.error = 'Database Error';
+                    resp.error = 'Database Error finding server type';
                 }
 
-                if (!req.body._id) {
-                    if (servertypes.length > 0) {
+                if (servertypes.length > 0) {
+                    if (servertypes[0]._id != req.body._id) {
                         resp.errorCode = 1;
                         resp.error = req.body.local.name + ' already exists';
                     }
                 }
-                done(error, resp);
+                if (resp.errorCode == 0) {
+                    done(null, resp);
+                } else {
+                    done(resp.errorCode, resp);
+                }
             });
         },
-        function(resp, done) {
+        function (resp, done) {
             var pluginNames = [];
             for (var i = 0; i < req.body.local.plugins.length; i++) {
                 pluginNames.push(req.body.local.plugins[i].name);
             }
-            Plugin.find({ 'local.name': { '$in': pluginNames } }, function(error, plugins) {
+            Plugin.find({ 'local.name': { '$in': pluginNames } }, function (error, plugins) {
                 if (error) {
                     resp.errorCode = 2;
-                    resp.error = 'Database Error';
+                    resp.error = 'Database Error finding plugins from server type';
                 }
                 if (plugins.length != req.body.local.plugins.length) {
                     resp.errorCode = 3;
                     resp.error = 'Some Plugins are missing from the database';
                 }
-                done(error, resp);
+                if (resp.errorCode == 0) {
+                    done(null, resp);
+                } else {
+                    done(resp.errorCode, resp);
+                }
             });
         },
-        function(resp, done) {
+        function (resp, done) {
             var error = null;
-            if (resp.errorCode == 0) {
-                if (req.body._id) {
-                    ServerType.findOne({ _id: req.body._id}, function (err, doc) {
-                        if (err) {
-                            resp.errorCode = 2;
-                            resp.error = 'Database Error';
-                            error = err;
-                        }
-                        if (doc) {
-                            doc.local.name = req.body.local.name;
-                            doc.local.players = req.body.local.players;
-                            doc.local.memory = req.body.local.memory;
-                            doc.local.number = req.body.local.number;
-                            doc.local.plugins = req.body.local.plugins;
-                            doc.save(function (err) {
-                                if (err) {
-                                    resp.errorCode = 2;
-                                    resp.error = 'Database Error';
-                                    error = err;
-                                }
-                                done(error, resp);
-                            })
+            if (req.body._id) {
+                ServerType.findOne({ _id: req.body._id}, function (err, doc) {
+                    if (err) {
+                        resp.errorCode = 2;
+                        resp.error = 'Database Error finding server type';
+                        error = err;
+                    }
+                    if (doc) {
+                        doc.local.name = req.body.local.name;
+                        doc.local.players = req.body.local.players;
+                        doc.local.memory = req.body.local.memory;
+                        doc.local.number = req.body.local.number;
+                        doc.local.plugins = req.body.local.plugins;
+                        doc.save(function (err) {
+                            if (err) {
+                                resp.errorCode = 2;
+                                resp.error = 'Database Error';
+                                error = err;
+                            }
+                            if (resp.errorCode == 0) {
+                                done(null, resp);
+                            } else {
+                                done(resp.errorCode, resp);
+                            }
+                        })
+                    } else {
+                        resp.errorCode = 2;
+                        resp.error = 'Saving Error';
+                        error = err;
+                        if (resp.errorCode == 0) {
+                            done(null, resp);
                         } else {
-                            resp.errorCode = 2;
-                            resp.error = 'Saving Error';
-                            error = err;
-                            done(error, resp);
+                            done(resp.errorCode, resp);
                         }
-                    });
-                } else {
-                    var type = new ServerType(req.body);
-                    type.save(function(err){
-                        if (err) {
-                            resp.errorCode = 2;
-                            resp.error = 'Database Error';
-                            error = err;
-                        }
-                        done(error, resp);
-                    });
-                }
-
+                    }
+                });
             } else {
-                done(error, resp);
+                var type = new ServerType(req.body);
+                type.save(function (err) {
+                    if (err) {
+                        resp.errorCode = 2;
+                        resp.error = 'Database Error';
+                        error = err;
+                    }
+                    if (resp.errorCode == 0) {
+                        done(null, resp);
+                    } else {
+                        done(resp.errorCode, resp);
+                    }
+                });
             }
-
         }
-    ], function(error, resp) {
+    ], function (error, resp) {
         res.send(resp);
     });
 }
 
 function modifyPlugin(req, res) {
     async.waterfall([
-        function(done) {
+        function (done) {
             var resp = {
                 errorCode: 0,
                 error: ''
             };
-            Plugin.find({ 'local.name': req.body.local.name }, function(error, plugins) {
+            Plugin.find({ 'local.name': req.body.local.name }, function (error, plugins) {
                 if (error) {
                     resp.errorCode = 2;
-                    resp.error = 'Database Error';
+                    resp.error = 'Database Error finding plugin';
                 }
 
                 if (!req.body._id) {
@@ -292,57 +342,67 @@ function modifyPlugin(req, res) {
                         resp.error = req.body.local.name + ' already exists';
                     }
                 }
-                done(error, resp);
+                if (resp.errorCode == 0) {
+                    done(null, resp);
+                } else {
+                    done(resp.errorCode, resp);
+                }
             });
         },
-        function(resp, done) {
+        function (resp, done) {
             var error = null;
-            if (resp.errorCode == 0) {
-                if (req.body._id) {
-                    Plugin.findOne({ _id: req.body._id}, function (err, doc) {
-                        if (err) {
-                            resp.errorCode = 2;
-                            resp.error = 'Database Error';
-                            error = err;
-                        }
-                        if (doc) {
-                            doc.local.name = req.body.local.name;
-                            doc.local.git = req.body.local.git;
-                            doc.local.folder = req.body.local.folder;
-                            doc.local.configs = req.body.local.configs;
-                            doc.save(function (err) {
-                                if (err) {
-                                    resp.errorCode = 2;
-                                    resp.error = 'Database Error';
-                                    error = err;
-                                }
-                                done(error, resp);
-                            })
+            if (req.body._id) {
+                Plugin.findOne({ _id: req.body._id}, function (err, doc) {
+                    if (err) {
+                        resp.errorCode = 2;
+                        resp.error = 'Database Error';
+                        error = err;
+                    }
+                    if (doc) {
+                        doc.local.name = req.body.local.name;
+                        doc.local.git = req.body.local.git;
+                        doc.local.folder = req.body.local.folder;
+                        doc.local.configs = req.body.local.configs;
+                        doc.save(function (err) {
+                            if (err) {
+                                resp.errorCode = 2;
+                                resp.error = 'Database Error updating plugin';
+                                error = err;
+                            }
+                            if (resp.errorCode == 0) {
+                                done(null, resp);
+                            } else {
+                                done(resp.errorCode, resp);
+                            }
+                        })
+                    } else {
+                        resp.errorCode = 2;
+                        resp.error = 'Saving Error';
+                        error = err;
+                        if (resp.errorCode == 0) {
+                            done(null, resp);
                         } else {
-                            resp.errorCode = 2;
-                            resp.error = 'Saving Error';
-                            error = err;
-                            done(error, resp);
+                            done(resp.errorCode, resp);
                         }
-                    });
-                } else {
-                    var type = new Plugin(req.body);
-                    type.save(function(err){
-                        if (err) {
-                            resp.errorCode = 2;
-                            resp.error = 'Database Error';
-                            error = err;
-                        }
-                        done(error, resp);
-                    });
-                }
-
+                    }
+                });
             } else {
-                done(error, resp);
+                var type = new Plugin(req.body);
+                type.save(function (err) {
+                    if (err) {
+                        resp.errorCode = 2;
+                        resp.error = 'Database Error saving plugin';
+                        error = err;
+                    }
+                    if (resp.errorCode == 0) {
+                        done(null, resp);
+                    } else {
+                        done(resp.errorCode, resp);
+                    }
+                });
             }
-
         }
-    ], function(error, resp) {
+    ], function (error, resp) {
         res.send(resp);
     });
 }

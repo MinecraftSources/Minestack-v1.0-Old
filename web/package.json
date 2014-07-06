@@ -21,7 +21,8 @@
     "express-session": "~1.0.0",
     "connect-flash": "~0.1.1",
     "async": "latest",
-    "express-validator": "latest",
+    "express-jwt": "latest",
+    "jsonwebtoken": "latest",
     "node-etcd": "latest"
   }
 }

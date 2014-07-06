@@ -12,6 +12,7 @@ var session = require('express-session');
 var expressValidator = require('express-validator');
 var Etcd = require('node-etcd');
 
+var expressJwt = require('express-jwt');
 
 var routes = require('./routes/index');
 var login = require('./routes/login');
@@ -23,6 +24,7 @@ var app = express();
 require('./config/passport.js')(passport);
 
 app.locals.mongoose = mongoose;
+app.locals.secret = 'thisismysecret';
 
 var etcd = new Etcd('172.17.8.101');
 app.locals.etcd = etcd;
@@ -48,13 +50,17 @@ app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({ secret: 'thisismysecret' }));
+app.use(session({ secret: app.locals.secret }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-//app.use('/login', login);
+app.use('/session', login);
+
+app.use('/api', expressJwt({secret: app.locals.secret}));
 app.use('/api', api);
+
+
 app.use('/', routes);
 app.use('/setup', setup);
 

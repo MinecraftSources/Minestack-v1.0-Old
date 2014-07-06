@@ -1,0 +1,13 @@
+<h1><span class="fa fa-forgot-password"></span>Forgot Password</h1>
+
+<div ng-show="hasError" class="alert alert-danger">{{ error }}</div>
+
+<!-- FORGOT FORM -->
+<form ng-submit="forgot()" method="post">
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" class="form-control" ng-model = "loginData.email" name="email" required>
+    </div>
+
+    <button type="submit" class="btn btn-warning">Reset Password</button>
+</form>
