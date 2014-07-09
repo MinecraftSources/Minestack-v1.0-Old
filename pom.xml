@@ -14,7 +14,6 @@
 
     <build>
         <finalName>${project.artifactId}-${project.version}</finalName>
-        <defaultGoal>clean deploy</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
