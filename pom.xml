@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
     <modules>
-        <module>NetworkController</module>
+        <module>MN2NetworkController</module>
     </modules>
 
     <distributionManagement>
