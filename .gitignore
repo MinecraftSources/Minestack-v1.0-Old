@@ -3,3 +3,5 @@
 *.iws
 log/
 target/
+controller.log
+dependency-reduced-pom.xml
