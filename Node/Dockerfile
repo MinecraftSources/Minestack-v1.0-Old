@@ -23,4 +23,4 @@ RUN chmod 755 ./*.py
 EXPOSE 25565
 
 # Run
-CMD["/run.py"]
+CMD ["/run.py"]
