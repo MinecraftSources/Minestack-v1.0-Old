@@ -21,12 +21,20 @@ def main():
         print('none found')
         sys.exit(0)
 
-    plugins = {}
-    worlds = {}
+    worlds = []
+    plugins = []
     for worldId in servertype['worlds']:
-        print(worldId)
+        world = worldsCollection.find_one({"_id": worldId})
+        worlds.append(world)
 
     for pluginId in servertype['plugins']:
-        print(pluginId)
+        plugin = pluginsCollection.find_one({"_id": pluginId})
+        plugins.append(plugin)
+
+    for world in worlds:
+        print('Loading world '+world['name'])
+
+    for plugin in plugins:
+        print('Loading plugin '+plugin['name'])
 
 main()

@@ -17,6 +17,7 @@ ENV MONGO_DB "mn2"
 
 # Copy Run Files
 ADD run.py /run.py
+RUN chmod 755 ./*.py
 
 # Expose Port
 EXPOSE 25565
