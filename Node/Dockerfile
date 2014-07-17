@@ -2,7 +2,7 @@ FROM centos:centos7
 MAINTAINER Jodie Belgrave
 
 # General Stuff
-yum install wget
+RUN yum install wget
 RUN wget http://mirror.us.leaseweb.net/epel/beta/7/x86_64/epel-release-7-0.2.noarch.rpm
 RUN rpm -Uvh epel-release-7-0.2.noarch.rpm
 RUN yum -y update
