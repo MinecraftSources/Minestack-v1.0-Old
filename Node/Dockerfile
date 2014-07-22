@@ -12,12 +12,12 @@ RUN wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=acc
 RUN rpm -Uvh jdk-8u11-linux-x64.rpm
 
 # Environment Variables
-ENV MONGO_HOSTS "10.1.42.1"
-ENV MONGO_DB "mn2"
+ENV MONGO_HOSTS 10.1.42.1
+ENV MONGO_DB mn2
 
-ENV RABBITMQ_HOSTS "10.1.42.1"
-ENV RABBITMQ_USERNAME "guest"
-ENV RABBITMQ_PASSWORD "guest"
+ENV RABBITMQ_HOSTS 10.1.42.1
+ENV RABBITMQ_USERNAME guest
+ENV RABBITMQ_PASSWORD guest
 
 # Copy Jar File
 ADD MN2NodeController.jar /MN2NodeController.jar
