@@ -19,10 +19,6 @@ ENV RABBITMQ_HOSTS "10.1.42.1"
 ENV RABBITMQ_USERNAME "guest"
 ENV RABBITMQ_PASSWORD "guest"
 
-# Copy Run Files
-ADD run.py /run.py
-RUN chmod 755 ./*.py
-
 # Copy Jar File
 ADD MN2NodeController.jar /MN2NodeController.jar
 
