@@ -23,4 +23,4 @@ ENV RABBITMQ_PASSWORD "guest"
 ADD MN2NodeController.jar /MN2NodeController.jar
 
 # Run
-ENTRYPOINT["java", "-jar", "/MN2NodeController.jar"]
+CMD["java", "-jar", "/MN2NodeController.jar"]
