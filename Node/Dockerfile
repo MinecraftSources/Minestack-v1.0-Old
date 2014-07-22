@@ -27,4 +27,4 @@ RUN chmod 755 ./*.py
 ADD MN2NodeController.jar /MN2NodeController.jar
 
 # Run
-CMD ["/run.py"]
+ENTRYPOINT["java", "-jar", "/MN2NodeController.jar"]
