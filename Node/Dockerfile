@@ -15,12 +15,16 @@ RUN rpm -Uvh jdk-8u11-linux-x64.rpm
 ENV MONGO_HOSTS "10.1.42.1"
 ENV MONGO_DB "mn2"
 
+ENV RABBITMQ_HOSTS "10.1.42.1"
+ENV RABBITMQ_USERNAME "guest"
+ENV RABBITMQ_PASSWORD "guest"
+
 # Copy Run Files
 ADD run.py /run.py
 RUN chmod 755 ./*.py
 
-# Expose Port
-EXPOSE 25565
+# Copy Jar File
+ADD MN2NodeController.Jar /MN2NodeController.jar
 
 # Run
 CMD ["/run.py"]
