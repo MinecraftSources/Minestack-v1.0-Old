@@ -24,7 +24,7 @@ ADD run.py /run.py
 RUN chmod 755 ./*.py
 
 # Copy Jar File
-ADD MN2NodeController.Jar /MN2NodeController.jar
+ADD MN2NodeController.jar /MN2NodeController.jar
 
 # Run
 CMD ["/run.py"]
