@@ -58,7 +58,7 @@ def main():
         default = worldInfo['default']
         print('Loading world '+world['name'])
 
-    os.makedirs('plugins')
+    os.system('mkdir plugins')
     for pluginInfo in plugins:
         plugin = pluginInfo['plugin']
         config = pluginInfo['config']
@@ -68,5 +68,6 @@ def main():
             if obj.content_type == 'application/directory':
                 continue
             obj.download('plugins')
+    os.system('ls plugins')
 
 main()
