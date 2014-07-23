@@ -63,7 +63,7 @@ def main():
         config = pluginInfo['config']
         subdirs = pluginContainer.get_objects(prefix=plugin['baseFolder'])
         for obj in subdirs:
-            print pluginContainer.get_object_metadata(obj)['Content-Type']
+            print obj.content_type
             print obj.name
         print('Loading plugin '+plugin['name'] + 'config '+config['name'])
 
