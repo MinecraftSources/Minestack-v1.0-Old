@@ -62,12 +62,14 @@ def main():
     for pluginInfo in plugins:
         plugin = pluginInfo['plugin']
         config = pluginInfo['config']
-        print('Downloading plugin '+plugin['name'] + 'config '+config['name'])
+        print('Downloading plugin '+plugin['name'] + ' config '+config['name'])
         objects = pluginContainer.get_objects(prefix=plugin['baseFolder'])
         for obj in objects:
             if obj.content_type == 'application/directory':
                 continue
             obj.download('plugins')
-    os.system('ls plugins')
+        os.system('mv plugins/'+config['location']+' plugins/'+plugin['name']+'/'+plugin['configFolder'])
+        os.system('ls -l plugins/'+plugin['name'])
+    os.system('ls -l plugins')
 
 main()
