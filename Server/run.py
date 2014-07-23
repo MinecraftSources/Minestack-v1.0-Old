@@ -5,6 +5,9 @@ import pyrax
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
+def modifyConfig(expression, value):
+    print('Modifying '+expression+' with value '+value)
+
 def main():
     pyrax.set_setting("identity_type", "rackspace")
     pyrax.set_default_region('IAD')
@@ -56,12 +59,22 @@ def main():
     os.system('mkdir server')
     print('Downloading Main Server files')
 
+    defaultWorld = None
     os.system('mkdir server/worlds')
     for worldInfo in worlds:
         world = worldInfo['world']
         default = worldInfo['default']
-        print('Loading world '+world['name'])
+        if default == True:
+            defaultWorld = world
+        print('Downloading world '+world['name'])
     os.system('ls -l server/worlds')
+
+    if defaultWorld == None:
+        print('No default world set')
+        sys.exit(0)
+
+    #modify server config for default world
+    modifyConfig('level.name', defaultWorld['name'])
 
     os.system('mkdir server/plugins')
     os.system('mkdir tempPlugins')
@@ -77,6 +90,12 @@ def main():
         os.system('mv tempPlugins/'+config['location']+' tempPlugins/'+plugin['name']+'/'+plugin['configFolder'])
         os.system('ls -l tempPlugins/'+plugin['name'])
         os.system('mv tempPlugins/'+plugin['name']+'/* server/plugins')
+    os.system('rm -rf tempPlugins')
     os.system('ls -l server/plugins')
-    os.system('ls -l server')
+
+    #modify server config for num of players
+    modifyConfig('num.players', servertype['players'])
+
+    os.system('sh run.sh '+servertype['memory'])
+
 main()
