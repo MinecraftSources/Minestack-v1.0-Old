@@ -19,11 +19,15 @@ ENV RABBITMQ_HOSTS 10.1.42.1
 ENV RABBITMQ_USERNAME guest
 ENV RABBITMQ_PASSWORD guest
 
+ENV RACKSPACE_USERNAME NULL
+ENV RACKSPACE_API NULL
+
 ENV SERVER_TYPE NULL
 
 # Install PyMongo
 RUN yum -y install python-pip gcc python-devel
 RUN pip install pymongo
+RUN pip install pyrax
 
 # Copy Run Files
 ADD run.py /run.py

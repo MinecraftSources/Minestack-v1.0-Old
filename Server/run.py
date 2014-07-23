@@ -1,10 +1,21 @@
 #!/bin/python
 import os
 import sys
+import pyrax
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 def main():
+    pyrax.set_setting("identity_type", "rackspace")
+    pyrax.set_default_region('IAD')
+    pyrax.set_credentials(os.environ['RACKSPACE_USERNAME'], os.environ['RACKSPACE_API'])
+    cf = pyrax.cloudfiles
+
+    pluginContainer = cf.create_container("mn2_plugins")
+    worldsContainer = cf.create_container("mn2_worlds")
+
+    print "Subdirs", pluginContainer.list_subdirs
+
     mongoHosts = os.environ['MONGO_HOSTS'].split(',')
     mongoDB = os.environ['MONGO_DB']
 
