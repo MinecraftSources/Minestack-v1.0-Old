@@ -78,5 +78,5 @@ def main():
         os.system('ls -l tempPlugins/'+plugin['name'])
         os.system('mv tempPlugins/'+plugin['name']+'/. server/plugins')
     os.system('ls -l server/plugins')
-    os.system('ls -l plugins')
+    os.system('ls -l server')
 main()
