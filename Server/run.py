@@ -24,9 +24,13 @@ def main():
 
     worlds = []
     plugins = []
-    for worldId in servertype['worlds']:
-        world = worldsCollection.find_one({"_id": worldId})
-        worlds.append(world)
+    for worldInfo in servertype['worlds']:
+        world = worldsCollection.find_one({"_id": worldInfo['_id']})
+        default = worldInfo['isDefault']
+
+        worldDict = {'world': world, 'default': default}
+        worlds.append(worldDict)
+        print('Loaded '+worldDict)
 
     for pluginInfo in servertype['plugins']:
         plugin = pluginsCollection.find_one({"_id": pluginInfo['_id']})
@@ -36,7 +40,9 @@ def main():
                 pluginConfig = config
                 break
 
-        plugins.append({'plugin': plugin, 'config': pluginConfig})
+        pluginDict = {'plugin': plugin, 'config': pluginConfig}
+        plugins.append(pluginDict)
+        print('Loaded '+pluginDict)
 
     for world in worlds:
         print('Loading world '+world['name'])
