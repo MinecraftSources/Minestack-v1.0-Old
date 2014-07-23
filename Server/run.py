@@ -30,7 +30,7 @@ def main():
 
         worldDict = {'world': world, 'default': default}
         worlds.append(worldDict)
-        print('Loaded '+worldDict)
+        print('Loaded '+world['name'])
 
     for pluginInfo in servertype['plugins']:
         plugin = pluginsCollection.find_one({"_id": pluginInfo['_id']})
@@ -42,9 +42,11 @@ def main():
 
         pluginDict = {'plugin': plugin, 'config': pluginConfig}
         plugins.append(pluginDict)
-        print('Loaded '+pluginDict)
+        print('Loaded '+plugin['name']+' '+pluginConfig['name'])
 
-    for world in worlds:
+    for worldInfo in worlds:
+        world = worldInfo['world']
+        default = worldInfo['default']
         print('Loading world '+world['name'])
 
     for pluginInfo in plugins:
