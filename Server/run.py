@@ -53,12 +53,18 @@ def main():
         plugins.append(pluginDict)
         print('Loaded '+plugin['name']+' '+pluginConfig['name'])
 
+    os.system('mkdir server')
+    print('Downloading Main Server files')
+
+    os.system('mkdir server/worlds')
     for worldInfo in worlds:
         world = worldInfo['world']
         default = worldInfo['default']
         print('Loading world '+world['name'])
+    os.system('ls -l server/worlds')
 
-    os.system('mkdir plugins')
+    os.system('mkdir server/plugins')
+    os.system('mkdir tempPlugins')
     for pluginInfo in plugins:
         plugin = pluginInfo['plugin']
         config = pluginInfo['config']
@@ -67,9 +73,10 @@ def main():
         for obj in objects:
             if obj.content_type == 'application/directory':
                 continue
-            obj.download('plugins')
-        os.system('mv plugins/'+config['location']+' plugins/'+plugin['name']+'/'+plugin['configFolder'])
-        os.system('ls -l plugins/'+plugin['name'])
+            obj.download('tempPlugins')
+        os.system('mv tempPlugins/'+config['location']+' tempPlugins/'+plugin['name']+'/'+plugin['configFolder'])
+        os.system('ls -l tempPlugins/'+plugin['name'])
+        os.system('mv plugins/'+plugin['name']+'/. server/plugins')
+    os.system('ls -l server/plugins')
     os.system('ls -l plugins')
-
 main()
