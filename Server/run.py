@@ -13,7 +13,7 @@ def main():
     worldsCollection = db['worlds']
     pluginsCollection = db['plugins']
 
-    query = {"local.name": os.environ['SERVER_TYPE']}
+    query = {"_id": os.environ['SERVER_TYPE']}
 
     servertype = servertypesCollection.find_one(query)
 
@@ -27,14 +27,22 @@ def main():
         world = worldsCollection.find_one({"_id": worldId})
         worlds.append(world)
 
-    for pluginId in servertype['plugins']:
-        plugin = pluginsCollection.find_one({"_id": pluginId})
-        plugins.append(plugin)
+    for pluginInfo in servertype['plugins']:
+        plugin = pluginsCollection.find_one({"_id": pluginInfo['_id']})
+        pluginConfig = None
+        for config in plugin['configs']:
+            if config['_id'] == pluginInfo['_configId']:
+                pluginConfig = config
+                break
+
+        plugins.append({'plugin': plugin, 'config': pluginConfig})
 
     for world in worlds:
         print('Loading world '+world['name'])
 
-    for plugin in plugins:
-        print('Loading plugin '+plugin['name'])
+    for pluginInfo in plugins:
+        plugin = pluginInfo['plugin']
+        config = pluginInfo['config']
+        print('Loading plugin '+plugin['name'] + 'config '+config['name'])
 
 main()
