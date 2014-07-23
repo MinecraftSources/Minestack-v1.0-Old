@@ -62,6 +62,8 @@ def main():
         plugin = pluginInfo['plugin']
         config = pluginInfo['config']
         subdirs = pluginContainer.list_subdirs(prefix=plugin['baseFolder'])
-        print('Loading plugin '+plugin['name'] + 'config '+config['name'] + ' dirs', subdirs)
+        for obj in subdirs:
+            print obj.name
+        print('Loading plugin '+plugin['name'] + 'config '+config['name'])
 
 main()
