@@ -58,13 +58,15 @@ def main():
         default = worldInfo['default']
         print('Loading world '+world['name'])
 
+    os.makedirs('plugins')
     for pluginInfo in plugins:
         plugin = pluginInfo['plugin']
         config = pluginInfo['config']
-        subdirs = pluginContainer.get_objects(prefix=plugin['baseFolder'])
-        for obj in subdirs:
-            print obj.content_type
-            print obj.name
-        print('Loading plugin '+plugin['name'] + 'config '+config['name'])
+        print('Downloading plugin '+plugin['name'] + 'config '+config['name'])
+        objects = pluginContainer.get_objects(prefix=plugin['baseFolder'])
+        for obj in objects:
+            if obj.content_type == 'application/directory':
+                continue
+            obj.download('plugins')
 
 main()
