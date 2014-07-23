@@ -76,7 +76,7 @@ def main():
             obj.download('tempPlugins')
         os.system('mv tempPlugins/'+config['location']+' tempPlugins/'+plugin['name']+'/'+plugin['configFolder'])
         os.system('ls -l tempPlugins/'+plugin['name'])
-        os.system('mv tempPlugins/'+plugin['name']+'/. server/plugins')
+        os.system('mv tempPlugins/'+plugin['name']+'/* server/plugins')
     os.system('ls -l server/plugins')
     os.system('ls -l server')
 main()
