@@ -14,8 +14,6 @@ def main():
     pluginContainer = cf.create_container("mn2_plugins")
     worldsContainer = cf.create_container("mn2_worlds")
 
-    print "Subdirs", pluginContainer.list_subdirs()
-
     mongoHosts = os.environ['MONGO_HOSTS'].split(',')
     mongoDB = os.environ['MONGO_DB']
 
@@ -63,6 +61,7 @@ def main():
     for pluginInfo in plugins:
         plugin = pluginInfo['plugin']
         config = pluginInfo['config']
-        print('Loading plugin '+plugin['name'] + 'config '+config['name'])
+        subdirs = pluginContainer.list_subdirs(prefix=plugin['baseFolder'])
+        print('Loading plugin '+plugin['name'] + 'config '+config['name'] +' dirs '+subdirs)
 
 main()
