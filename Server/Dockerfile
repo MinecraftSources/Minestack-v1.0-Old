@@ -11,6 +11,11 @@ RUN yum -y update
 RUN wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u11-b12/jdk-8u11-linux-x64.rpm
 RUN rpm -Uvh jdk-8u11-linux-x64.rpm
 
+# Install PyMongo
+RUN yum -y install python-pip gcc python-devel
+RUN pip install pymongo
+RUN pip install pyrax
+
 # Environment Variables
 ENV MONGO_HOSTS 10.1.42.1
 ENV MONGO_DB mn2
@@ -23,11 +28,6 @@ ENV RACKSPACE_USERNAME NULL
 ENV RACKSPACE_API NULL
 
 ENV SERVER_TYPE NULL
-
-# Install PyMongo
-RUN yum -y install python-pip gcc python-devel
-RUN pip install pymongo
-RUN pip install pyrax
 
 # Copy Run Files
 ADD run.py /run.py
