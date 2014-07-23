@@ -2,6 +2,7 @@
 import os
 import sys
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 
 def main():
     mongoHosts = os.environ['MONGO_HOSTS'].split(',')
@@ -13,12 +14,12 @@ def main():
     worldsCollection = db['worlds']
     pluginsCollection = db['plugins']
 
-    query = {"_id": os.environ['SERVER_TYPE']}
+    query = {"_id": ObjectId(os.environ['SERVER_TYPE'])}
 
     servertype = servertypesCollection.find_one(query)
 
     if servertype == None:
-        print('none found')
+        print('No server type found')
         sys.exit(0)
 
     worlds = []
