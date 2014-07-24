@@ -66,7 +66,13 @@ def main():
         default = worldInfo['default']
         if default == True:
             defaultWorld = world
-        print('Downloading world '+world['name'])
+            print('Downloading world '+world['name'])
+        objects = worldsContainer.get_object(prefix=world['folder'])
+        for obj in objects:
+            if obj.content_type == 'application/directory':
+                continue
+            obj.download('server/worlds')
+        os.system('mv server/worlds/'+world['folder']+' server/worlds/'+world['name'])
     os.system('ls -l server/worlds')
 
     if defaultWorld == None:
@@ -96,6 +102,6 @@ def main():
     #modify server config for num of players
     modifyConfig('num.players', servertype['players'])
 
-    os.system('sh run.sh '+servertype['memory'])
+    os.system('sh server/run.sh '+servertype['memory'])
 
 main()
