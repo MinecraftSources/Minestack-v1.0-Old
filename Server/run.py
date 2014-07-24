@@ -81,7 +81,6 @@ def main():
                 continue
             print obj.name
             obj.download('server/worlds')
-        os.system('mv server/worlds/'+world['folder']+' server/worlds/'+world['name'])
     os.system('ls -l server/worlds')
 
     if defaultWorld is None:
