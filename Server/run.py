@@ -102,7 +102,7 @@ def main():
             if obj.content_type == 'application/directory':
                 continue
             obj.download('tempPlugins')
-        if config is None:
+        if config is not None:
             os.system('mv tempPlugins/'+config['location']+' tempPlugins/'+plugin['name']+'/'+plugin['configFolder'])
         os.system('ls -l tempPlugins/'+plugin['name'])
         os.system('mv tempPlugins/'+plugin['name']+'/* server/plugins')
