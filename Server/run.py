@@ -6,7 +6,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 def modifyConfig(expression, value):
-    print('Modifying '+expression+' with value '+value)
+    print('Modifying '+expression+' with value '+str(value))
 
 def main():
     pyrax.set_setting("identity_type", "rackspace")
@@ -14,6 +14,7 @@ def main():
     pyrax.set_credentials(os.environ['RACKSPACE_USERNAME'], os.environ['RACKSPACE_API'])
     cf = pyrax.cloudfiles
 
+    serverContainer = cf.create_container("mn2_server")
     pluginContainer = cf.create_container("mn2_plugins")
     worldsContainer = cf.create_container("mn2_worlds")
 
@@ -30,7 +31,7 @@ def main():
 
     servertype = servertypesCollection.find_one(query)
 
-    if servertype == None:
+    if servertype is None:
         print('No server type found')
         sys.exit(0)
 
@@ -58,13 +59,20 @@ def main():
 
     os.system('mkdir server')
     print('Downloading Main Server files')
+    objects = serverContainer.get_objects()
+    for obj in objects:
+        if obj.content_type == 'application/directory':
+            continue
+        print obj.name
+        obj.download('server')
+    os.system('ls -l server')
 
     defaultWorld = None
     os.system('mkdir server/worlds')
     for worldInfo in worlds:
         world = worldInfo['world']
         default = worldInfo['default']
-        if default == True:
+        if default is True:
             defaultWorld = world
             print('Downloading world '+world['name'])
         objects = worldsContainer.get_objects(prefix=world['folder'])
@@ -76,7 +84,7 @@ def main():
         os.system('mv server/worlds/'+world['folder']+' server/worlds/'+world['name'])
     os.system('ls -l server/worlds')
 
-    if defaultWorld == None:
+    if defaultWorld is None:
         print('No default world set')
         sys.exit(0)
 
@@ -94,7 +102,8 @@ def main():
             if obj.content_type == 'application/directory':
                 continue
             obj.download('tempPlugins')
-        os.system('mv tempPlugins/'+config['location']+' tempPlugins/'+plugin['name']+'/'+plugin['configFolder'])
+        if config is None:
+            os.system('mv tempPlugins/'+config['location']+' tempPlugins/'+plugin['name']+'/'+plugin['configFolder'])
         os.system('ls -l tempPlugins/'+plugin['name'])
         os.system('mv tempPlugins/'+plugin['name']+'/* server/plugins')
     os.system('rm -rf tempPlugins')
