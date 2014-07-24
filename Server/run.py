@@ -112,6 +112,6 @@ def main():
     #modify server config for num of players
     modifyConfig('num.players', servertype['players'])
 
-    os.system('sh server/run.sh '+servertype['memory'])
+    os.system('sh server/run.sh '+str(servertype['memory']))
 
 main()
