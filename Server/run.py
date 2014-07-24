@@ -67,7 +67,7 @@ def main():
         if default == True:
             defaultWorld = world
             print('Downloading world '+world['name'])
-        objects = worldsContainer.get_object(prefix=world['folder'])
+        objects = worldsContainer.get_objects(prefix=world['folder'])
         for obj in objects:
             if obj.content_type == 'application/directory':
                 continue
