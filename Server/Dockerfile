@@ -3,8 +3,8 @@ MAINTAINER Jodie Belgrave
 
 # General Stuff
 RUN yum -y install wget
-RUN wget http://mirror.us.leaseweb.net/epel/beta/7/x86_64/epel-release-7-0.2.noarch.rpm
-RUN rpm -Uvh epel-release-7-0.2.noarch.rpm
+RUN wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+RUN rpm -Uvh epel-release-6-8.noarch.rpm
 RUN yum -y update
 
 # Install Java
