@@ -23,11 +23,16 @@ def main():
 
     client = MongoClient(mongoHosts)
     db = client[mongoDB]
+    serverCollection = db['servers']
     servertypesCollection = db['servertypes']
     worldsCollection = db['worlds']
     pluginsCollection = db['plugins']
 
-    query = {"_id": ObjectId(os.environ['SERVER_TYPE'])}
+    query = {"_id": ObjectId(os.environ['MY_SERVER_ID'])}
+
+    server = serverCollection.find_one(query)
+
+    query = {"_id": server['_servertype']}
 
     servertype = servertypesCollection.find_one(query)
 
