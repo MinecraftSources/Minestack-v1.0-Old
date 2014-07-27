@@ -24,5 +24,5 @@ ENV RACKSPACE_API NULL
 # Copy nodejs files
 ADD web/ /
 
-CMD["npm install"]
-CMD["node app.js"]
+CMD ["npm install"]
+CMD ["node app.js"]
