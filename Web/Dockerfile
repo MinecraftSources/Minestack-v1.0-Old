@@ -8,7 +8,7 @@ RUN rpm -Uvh epel-release-6-8.noarch.rpm
 RUN yum -y update
 
 #Install NodeJS
-RUN yum -y --enablerepo=centosplus install nodejs npm
+RUN yum -y --enablerepo=centosplus install npm
 
 # Environment Variables
 ENV MONGO_HOSTS 10.1.42.1
@@ -26,4 +26,4 @@ ADD web/ /
 
 RUN npm install
 
-CMD ["node app.js"]
+CMD ["node", "app.js"]
