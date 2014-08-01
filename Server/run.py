@@ -64,8 +64,8 @@ def main():
         print('Copying world '+world['name'])
         if default is True:
             defaultWorld = world
-        os.system('cp /mnt/cloudfiles/mn2_worlds/'+world['folder']+' worlds/')
-    #os.system('ls -l worlds')
+        os.system('cp -R /mnt/cloudfiles/mn2_worlds/'+world['folder']+' worlds/')
+    os.system('ls -l worlds')
 
     if defaultWorld is None:
         print('No default world set')
@@ -81,11 +81,12 @@ def main():
         config = pluginInfo['config']
         print('Downloading plugin '+plugin['name'] + ' config '+config['name'])
 
+        os.system('mkdir '+plugin['name'])
         os.system('cp /mnt/cloudfiles/mn2_plugins/'+plugin['baseFolder']+'/* tempPlugins/'+plugin['name'])
         if config is not None:
             os.system('mv tempPlugins/'+config['location']+' tempPlugins/'+plugin['name']+'/'+plugin['configFolder'])
         os.system('mv tempPlugins/'+plugin['name']+'/* plugins')
-    #os.system('ls -l plugins')
+    os.system('ls -l plugins')
 
     #modify server config for num of players
     modifyConfig('num.players', servertype['players'])
