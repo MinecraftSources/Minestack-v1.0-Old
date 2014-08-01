@@ -14,7 +14,6 @@ RUN rpm -Uvh jdk-8u11-linux-x64.rpm
 # Install PyMongo
 RUN yum -y install python-pip gcc python-devel
 RUN pip install pymongo
-RUN pip install pyrax
 
 # Environment Variables
 ENV MONGO_HOSTS 10.1.42.1
