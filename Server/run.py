@@ -62,7 +62,6 @@ def main():
         plugins.append(pluginDict)
         print('Loaded '+plugin['name']+' '+pluginConfig['name'])
 
-    os.system('mkdir server')
     print('Downloading Main Server files')
     objects = serverContainer.get_objects()
     for obj in objects:
