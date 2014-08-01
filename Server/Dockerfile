@@ -30,12 +30,15 @@ ENV RACKSPACE_API NULL
 ENV MY_SERVER_ID NULL
 
 # Copy Run Files
-ADD run.py /run.py
-RUN chmod 755 ./*.py
-RUN ls -l /
+RUN mkdir /MN2
+ADD run.py /MN2/run.py
+
+WORKDIR /MN2
+RUN chmod 755 *.py
+RUN ls -l
 
 # Expose Port
 EXPOSE 25565
 
 # Run
-CMD ["/run.py"]
+CMD ["run.py"]

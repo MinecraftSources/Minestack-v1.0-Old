@@ -22,8 +22,9 @@ ENV RACKSPACE_USERNAME NULL
 ENV RACKSPACE_API NULL
 
 # Copy nodejs files
-ADD web/ /
+RUN mkdir /web
+ADD web/ /web/
 
+WORKDIR /web
 RUN npm install
-
 CMD ["node", "app.js"]

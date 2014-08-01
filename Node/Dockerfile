@@ -23,7 +23,9 @@ ENV RACKSPACE_USERNAME NULL
 ENV RACKSPACE_API NULL
 
 # Copy Jar File
-ADD MN2NodeController.jar /MN2NodeController.jar
+RUN mkdir /MN2
+ADD MN2NodeController.jar /MN2/MN2NodeController.jar
 
 # Run
-CMD ["java", "-jar", "/MN2NodeController.jar"]
+WORKDIR /MN2
+CMD ["java", "-jar", "MN2NodeController.jar"]
