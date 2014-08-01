@@ -41,4 +41,4 @@ RUN ls -l
 EXPOSE 25565
 
 # Run
-CMD ["run.py"]
+CMD ["/run.py"]
