@@ -69,7 +69,7 @@ def main():
         if obj.content_type == 'application/directory':
             continue
         print obj.name
-        obj.download('server')
+        obj.download()
     #os.system('ls -l server')
 
     defaultWorld = None
