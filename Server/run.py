@@ -70,10 +70,10 @@ def main():
             continue
         print obj.name
         obj.download('server')
-    os.system('ls -l server')
+    #os.system('ls -l server')
 
     defaultWorld = None
-    os.system('mkdir server/worlds')
+    os.system('mkdir worlds')
     for worldInfo in worlds:
         world = worldInfo['world']
         default = worldInfo['default']
@@ -85,8 +85,8 @@ def main():
             if obj.content_type == 'application/directory':
                 continue
             print obj.name
-            obj.download('server/worlds')
-    os.system('ls -l server/worlds')
+            obj.download('/orlds')
+    #os.system('ls -l worlds')
 
     if defaultWorld is None:
         print('No default world set')
@@ -95,7 +95,7 @@ def main():
     #modify server config for default world
     modifyConfig('level.name', defaultWorld['name'])
 
-    os.system('mkdir server/plugins')
+    os.system('mkdir plugins')
     os.system('mkdir tempPlugins')
     for pluginInfo in plugins:
         plugin = pluginInfo['plugin']
@@ -108,14 +108,15 @@ def main():
             obj.download('tempPlugins')
         if config is not None:
             os.system('mv tempPlugins/'+config['location']+' tempPlugins/'+plugin['name']+'/'+plugin['configFolder'])
-        os.system('ls -l tempPlugins/'+plugin['name'])
-        os.system('mv tempPlugins/'+plugin['name']+'/* server/plugins')
+        #os.system('ls -l tempPlugins/'+plugin['name'])
+        os.system('mv tempPlugins/'+plugin['name']+'/* plugins')
     os.system('rm -rf tempPlugins')
-    os.system('ls -l server/plugins')
+    #os.system('ls -l plugins')
 
     #modify server config for num of players
     modifyConfig('num.players', servertype['players'])
 
-    os.system('sh server/run.sh '+str(servertype['memory']))
+    os.system('ls -l')
+    os.system('sh run.sh '+str(servertype['memory']))
 
 main()
