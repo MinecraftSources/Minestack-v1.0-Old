@@ -19,7 +19,7 @@ def main():
     worldsContainer = cf.create_container("mn2_worlds")
 
     mongoHosts = os.environ['MONGO_HOSTS'].split(',')
-    mongoDB = os.environ['MONGO_DB']
+    mongoDB = "mn2"
 
     client = MongoClient(mongoHosts)
     db = client[mongoDB]
@@ -110,7 +110,7 @@ def main():
             os.system('mv tempPlugins/'+config['location']+' tempPlugins/'+plugin['name']+'/'+plugin['configFolder'])
         #os.system('ls -l tempPlugins/'+plugin['name'])
         os.system('mv tempPlugins/'+plugin['name']+'/* plugins')
-    os.system('rm -rf tempPlugins')
+    #os.system('rm -rf tempPlugins')
     #os.system('ls -l plugins')
 
     #modify server config for num of players
