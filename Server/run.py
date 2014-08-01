@@ -85,7 +85,7 @@ def main():
             if obj.content_type == 'application/directory':
                 continue
             print obj.name
-            obj.download('/orlds')
+            obj.download('worlds')
     #os.system('ls -l worlds')
 
     if defaultWorld is None:
