@@ -33,12 +33,9 @@ ENV MY_SERVER_ID NULL
 RUN mkdir /MN2
 ADD run.py /MN2/run.py
 
-WORKDIR /MN2
-RUN chmod 755 *.py
-RUN ls -l
-
 # Expose Port
 EXPOSE 25565
 
 # Run
-CMD ["/run.py"]
+WORKDIR /MN2
+CMD ["python", "run.py"]
