@@ -18,7 +18,6 @@ RUN pip install pyrax
 
 # Environment Variables
 ENV MONGO_HOSTS 10.1.42.1
-ENV MONGO_DB mn2
 
 ENV RABBITMQ_HOSTS 10.1.42.1
 ENV RABBITMQ_USERNAME guest
