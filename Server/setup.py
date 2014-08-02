@@ -98,7 +98,6 @@ def main():
     #modify server config for num of players
     modifyConfig('maxplayers', servertype['players'])
 
-    os.system('ls -l')
     os.system('touch start.sh')
     os.system("echo '#!/bin/bash' >> start.sh")
     os.system("echo 'java -XX:MaxPermSize=128M -Xmx"+str(servertype['memory'])+"m -jar spigot.jar' >> start.sh")
