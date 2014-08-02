@@ -100,7 +100,7 @@ def main():
 
     os.system('ls -l')
     os.system('touch start.sh')
-    os.system('echo >> #!/bin/bash')
-    os.system('echo >> java -XX:MaxPermSize=128M -Xmx'+str(servertype['memory'])+'m -jar spigot.jar')
+    os.system("echo '#!/bin/bash' >> start.sh")
+    os.system("echo 'java -XX:MaxPermSize=128M -Xmx"+str(servertype['memory'])+"m -jar spigot.jar' >> start.sh")
 
 main()
