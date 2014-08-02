@@ -6,7 +6,7 @@ from bson.objectid import ObjectId
 
 def modifyConfig(expression, value):
     print('Modifying '+expression+' with value '+str(value))
-    os.system("sed -i s/"+expression+"/"+value+"/ server.properties")
+    os.system("sed -i s/"+str(expression)+"/"+str(value)+"/ server.properties")
 
 def main():
 
