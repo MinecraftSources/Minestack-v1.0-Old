@@ -83,7 +83,10 @@ def main():
     for pluginInfo in plugins:
         plugin = pluginInfo['plugin']
         config = pluginInfo['config']
-        print('Downloading plugin '+plugin['name'] + ' config '+config['name'])
+        if config is None:
+            print('Downloading plugin '+plugin['name'] + ' no configs')
+        else:
+            print('Downloading plugin '+plugin['name'] + ' config '+config['name'])
 
         os.system('mkdir tempPlugins/'+plugin['name'])
         os.system('cp -R /mnt/cloudfiles/mn2_plugins/'+plugin['baseFolder']+'/* tempPlugins/'+plugin['name'])
