@@ -37,4 +37,4 @@ EXPOSE 25565
 
 # Run
 WORKDIR /MN2
-CMD ["sh", "run.sh"]
+ENTRYPOINT ["sh", "run.sh"]
