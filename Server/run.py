@@ -6,6 +6,7 @@ from bson.objectid import ObjectId
 
 def modifyConfig(expression, value):
     print('Modifying '+expression+' with value '+str(value))
+    os.system("sed -i s/"+expression+"/"+value+"/ server.properties")
 
 def main():
 
@@ -89,7 +90,7 @@ def main():
     os.system('ls -l plugins')
 
     #modify server config for num of players
-    modifyConfig('num.players', servertype['players'])
+    modifyConfig('max.players', servertype['players'])
 
     os.system('ls -l')
     os.system('sh run.sh '+str(servertype['memory']))
