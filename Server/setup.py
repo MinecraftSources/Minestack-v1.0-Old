@@ -103,4 +103,6 @@ def main():
     os.system("echo '#!/bin/bash' >> start.sh")
     os.system("echo 'java -XX:MaxPermSize=128M -Xmx"+str(servertype['memory'])+"m -jar spigot.jar' >> start.sh")
 
+    os.system('sh start.sh')
+
 main()

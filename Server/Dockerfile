@@ -30,11 +30,10 @@ ENV MY_SERVER_ID NULL
 # Copy Run Files
 RUN mkdir /MN2
 ADD setup.py /MN2/setup.py
-ADD run.sh /MN2/run.sh
 
 # Expose Port
 EXPOSE 25565
 
 # Run
 WORKDIR /MN2
-ENTRYPOINT ["sh", "run.sh"]
+ENTRYPOINT ["python", "setup.py"]
