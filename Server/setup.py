@@ -99,10 +99,6 @@ def main():
     modifyConfig('maxplayers', servertype['players'])
 
     os.system('touch .update-lock')
-    os.system('touch start.sh')
-    os.system("echo '#!/bin/bash' >> start.sh")
-    os.system("echo 'java -XX:MaxPermSize=128M -Xmx"+str(servertype['memory'])+"m -jar spigot.jar' >> start.sh")
-
-    os.system('sh start.sh')
+    os.system("java -XX:MaxPermSize=128M -Xmx"+str(servertype['memory'])+"m -jar spigot.jar")
 
 main()
