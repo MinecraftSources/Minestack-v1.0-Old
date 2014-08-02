@@ -52,7 +52,10 @@ def main():
 
         pluginDict = {'plugin': plugin, 'config': pluginConfig}
         plugins.append(pluginDict)
-        print('Loaded '+plugin['name']+' '+pluginConfig['name'])
+        if pluginConfig is None:
+            print('Loaded '+plugin['name']+' no config')
+        else:
+            print('Loaded '+plugin['name']+' with config '+pluginConfig['name'])
 
     print('Copying Main Server files')
     os.system('cp /mnt/cloudfiles/mn2_server/* .')
