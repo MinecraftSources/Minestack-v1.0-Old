@@ -6,7 +6,7 @@ from bson.objectid import ObjectId
 
 def modifyConfig(expression, value):
     print('Modifying '+expression+' with value '+str(value))
-    os.system("sed -i s/"+str(expression)+"/"+str(value)+"/ server.properties")
+    os.system("sed -i 's/"+str(expression)+"/"+str(value)+"/' server.properties")
 
 def main():
 
@@ -76,7 +76,7 @@ def main():
         sys.exit(0)
 
     #modify server config for default world
-    modifyConfig('level.name', defaultWorld['name'])
+    modifyConfig('levelname', defaultWorld['name'])
 
     os.system('mkdir plugins')
     os.system('mkdir tempPlugins')
@@ -96,7 +96,7 @@ def main():
     os.system('ls -l plugins')
 
     #modify server config for num of players
-    modifyConfig('max.players', servertype['players'])
+    modifyConfig('maxplayers', servertype['players'])
 
     os.system('ls -l')
     os.system('cat server.properties')
