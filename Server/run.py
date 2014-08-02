@@ -99,6 +99,7 @@ def main():
     modifyConfig('max.players', servertype['players'])
 
     os.system('ls -l')
+    os.system('cat server.properties')
     os.system('sh run.sh '+str(servertype['memory']))
 
 main()
