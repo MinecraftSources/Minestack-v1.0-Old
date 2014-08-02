@@ -5,4 +5,4 @@ cat server.properties
 ls -l
 sh start.sh &
 sleep 5
-tail logs/latest.log
+tail -f logs/latest.log
