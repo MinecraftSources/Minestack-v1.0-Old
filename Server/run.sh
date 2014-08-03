@@ -2,4 +2,4 @@
 
 python -u setup.py
 sleep 10
-sh -c "sh start.sh"
+java -XX:MaxPermSize=128M -Xmx512m -jar spigot.jar
