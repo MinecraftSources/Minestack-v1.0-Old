@@ -83,6 +83,7 @@ def main():
     for pluginInfo in plugins:
         plugin = pluginInfo['plugin']
         config = pluginInfo['config']
+        print('Copying plugin '+plugin['name'])
         #if config is None:
         #    print('Downloading plugin '+plugin['name'] + ' no configs')
         #else:
@@ -102,4 +103,5 @@ def main():
     os.system('touch start.sh')
     os.system("echo '#!/bin/bash' >> start.sh")
 
+    os.system('ls -l')
 main()
