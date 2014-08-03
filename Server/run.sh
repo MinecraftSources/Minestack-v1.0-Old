@@ -1,5 +1,6 @@
 #!/bin/bash
 
 python -u setup.py
-sleep 10
-java -XX:MaxPermSize=128M -Xmx512m -jar spigot.jar
+sh start.sh &
+sleep 5
+tail -f logs/latest.log
