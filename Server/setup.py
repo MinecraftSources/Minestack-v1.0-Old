@@ -5,7 +5,7 @@ from pymongo import MongoClient
 from bson.objectid import ObjectId
 
 def modifyConfig(expression, value):
-    #print('Modifying '+expression+' with value '+str(value))
+    print('Modifying '+expression+' with value '+str(value))
     os.system("sed -i 's/"+str(expression)+"/"+str(value)+"/' server.properties")
 
 def main():
@@ -29,7 +29,7 @@ def main():
     servertype = servertypesCollection.find_one(query)
 
     if servertype is None:
-        #print('No server type found')
+        print('No server type found')
         sys.exit(0)
 
     worlds = []
@@ -40,7 +40,7 @@ def main():
 
         worldDict = {'world': world, 'default': default}
         worlds.append(worldDict)
-        #print('Loaded '+world['name'])
+        print('Loaded '+world['name'])
 
     for pluginInfo in servertype['plugins']:
         plugin = pluginsCollection.find_one({"_id": pluginInfo['_id']})
@@ -57,7 +57,7 @@ def main():
         #else:
         #    print('Loaded '+plugin['name']+' with config '+pluginConfig['name'])
 
-    #print('Copying Main Server files')
+    print('Copying Main Server files')
     os.system('cp /mnt/cloudfiles/mn2_server/* .')
 
     defaultWorld = None
@@ -65,14 +65,14 @@ def main():
     for worldInfo in worlds:
         world = worldInfo['world']
         default = worldInfo['default']
-        #print('Copying world '+world['name'])
+        print('Copying world '+world['name'])
         if default is True:
             defaultWorld = world
         os.system('cp -R /mnt/cloudfiles/mn2_worlds/'+world['folder']+' worlds/')
     os.system('ls -l worlds')
 
     if defaultWorld is None:
-        #print('No default world set')
+        print('No default world set')
         sys.exit(0)
 
     #modify server config for default world
@@ -99,6 +99,7 @@ def main():
     modifyConfig('maxplayers', servertype['players'])
 
     os.system('touch .update-lock')
-    os.system("java -XX:MaxPermSize=128M -Xmx"+str(servertype['memory'])+"m -jar spigot.jar")
+    os.system('touch start.sh')
+    os.system("echo '#!/bin/bash' >> start.sh")
 
 main()
