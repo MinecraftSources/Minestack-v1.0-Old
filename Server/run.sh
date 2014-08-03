@@ -2,4 +2,4 @@
 
 python -u setup.py
 sleep 10
-exec sh start.sh
+sh -c "sh start.sh"
