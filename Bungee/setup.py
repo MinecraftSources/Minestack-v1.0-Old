@@ -4,6 +4,10 @@ import sys
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
+def modifyConfig(expression, value):
+    print('Modifying '+expression+' with value '+str(value))
+    os.system("sed -i 's/"+str(expression)+"/"+str(value)+"/' config.yml")
+
 def main():
 
     mongoHosts = os.environ['MONGO_HOSTS'].split(',')
@@ -64,6 +68,18 @@ def main():
             os.system('mv tempPlugins/'+config['location']+' tempPlugins/'+plugin['name']+'/'+plugin['configFolder'])
         os.system('mv tempPlugins/'+plugin['name']+'/* plugins')
     os.system('ls -l plugins')
+
+    defaultServer = None
+    for serverinfo in bungeetype['servertypes']:
+        if serverinfo['isDefault']:
+            defaultServer = serverinfo
+            break
+
+    if defaultServer is not None:
+        modifyConfig("default.server", defaultServer['_id'])
+    else:
+        print('No default server found')
+        sys.exit(0)
 
     os.system('touch start.sh')
     os.system("echo '#!/bin/bash' >> start.sh")
