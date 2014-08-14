@@ -76,14 +76,14 @@ def main():
             break
 
     if defaultServer is not None:
-        modifyConfig("default.server", defaultServer['_id'])
+        modifyConfig("defaultserver", defaultServer['_id'])
     else:
         print('No default server found')
         sys.exit(0)
 
     os.system('touch start.sh')
     os.system("echo '#!/bin/bash' >> start.sh")
-    os.system("echo 'java -XX:MaxPermSize=128M -Xmx1024m -jar bungee.jar' >> start.sh")
+    os.system("echo 'java -XX:MaxPermSize=128M -Xmx1024m -jar BungeeCord.jar' >> start.sh")
 
     os.system('ls -l')
 main()
