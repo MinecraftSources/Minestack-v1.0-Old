@@ -23,7 +23,7 @@ def main():
 
     bungee = bungeeCollection.find_one(query)
 
-    query = {"_id": bungee['_servertype']}
+    query = {"_id": bungee['_bungeetype']}
 
     bungeetype = bungeetypesCollection.find_one(query)
 
