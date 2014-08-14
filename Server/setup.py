@@ -58,7 +58,7 @@ def main():
         #    print('Loaded '+plugin['name']+' with config '+pluginConfig['name'])
 
     print('Copying Main Server files')
-    os.system('cp /mnt/cloudfiles/mn2_server/* .')
+    os.system('cp -R /mnt/cloudfiles/mn2_server/* .')
 
     defaultWorld = None
     os.system('mkdir worlds')
