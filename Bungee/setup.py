@@ -49,7 +49,7 @@ def main():
         #    print('Loaded '+plugin['name']+' with config '+pluginConfig['name'])
 
     print('Copying Main Bungee files')
-    os.system('cp -R /mnt/cloudfiles/mn2_bungee/* .')
+    os.system('cp -R /mnt/nfs/mn2/bungee/* .')
 
     os.system('mkdir plugins')
     os.system('mkdir tempPlugins')
@@ -63,7 +63,7 @@ def main():
         #    print('Downloading plugin '+plugin['name'] + ' config '+config['name'])
 
         os.system('mkdir tempPlugins/'+plugin['name'])
-        os.system('cp -R /mnt/cloudfiles/mn2_plugins/'+plugin['baseFolder']+'/* tempPlugins/'+plugin['name'])
+        os.system('cp -R /mnt/nfs/mn2/plugins/'+plugin['baseFolder']+'/* tempPlugins/'+plugin['name'])
         if config is not None:
             os.system('mv tempPlugins/'+config['location']+' tempPlugins/'+plugin['name']+'/'+plugin['configFolder'])
         os.system('mv tempPlugins/'+plugin['name']+'/* plugins')

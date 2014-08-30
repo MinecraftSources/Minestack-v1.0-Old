@@ -58,7 +58,7 @@ def main():
         #    print('Loaded '+plugin['name']+' with config '+pluginConfig['name'])
 
     print('Copying Main Server files')
-    os.system('cp -R /mnt/cloudfiles/mn2_server/* .')
+    os.system('cp -R /mnt/nfs/mn2/server/* .')
 
     defaultWorld = None
     os.system('mkdir worlds')
@@ -68,7 +68,7 @@ def main():
         print('Copying world '+world['name'])
         if default is True:
             defaultWorld = world
-        os.system('cp -R /mnt/cloudfiles/mn2_worlds/'+world['folder']+' worlds/')
+        os.system('cp -R /mnt/nfs/mn2/worlds/'+world['folder']+' worlds/')
     os.system('ls -l worlds')
 
     if defaultWorld is None:
@@ -90,7 +90,7 @@ def main():
         #    print('Downloading plugin '+plugin['name'] + ' config '+config['name'])
 
         os.system('mkdir tempPlugins/'+plugin['name'])
-        os.system('cp -R /mnt/cloudfiles/mn2_plugins/'+plugin['baseFolder']+'/* tempPlugins/'+plugin['name'])
+        os.system('cp -R /mnt/nfs/mn2/plugins/'+plugin['baseFolder']+'/* tempPlugins/'+plugin['name'])
         if config is not None:
             os.system('mv tempPlugins/'+config['location']+' tempPlugins/'+plugin['name']+'/'+plugin['configFolder'])
         os.system('mv tempPlugins/'+plugin['name']+'/* plugins')
