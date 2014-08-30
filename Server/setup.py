@@ -68,7 +68,7 @@ def main():
         print('Copying world '+world['name'])
         if default is True:
             defaultWorld = world
-        os.system('cp -R /mnt/nfs/mn2/worlds/'+world['folder']+' worlds/')
+        os.system('cp -R /mnt/nfs/mn2/worlds/'+world['folder']+' worlds/'+world['name'])
     os.system('ls -l worlds')
 
     if defaultWorld is None:
