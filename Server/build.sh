@@ -1,6 +1,6 @@
 #!/bin/bash
 
 echo "Building Server Image"
-docker rmi mnsquared/server
+docker rmi minestack/server
 docker build -t="mnsquared/server" .
 echo "Finished building Server Image"
