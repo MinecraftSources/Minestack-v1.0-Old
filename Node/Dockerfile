@@ -20,8 +20,8 @@ ENV RABBITMQ_PASSWORD guest
 
 # Copy Jar File
 RUN mkdir /MN2
-ADD MN2NodeController.jar /MN2/MN2NodeController.jar
+ADD Redstone.jar /MN2/Redstone.jar
 
 # Run
 WORKDIR /MN2
-CMD ["java", "-jar", "MN2NodeController.jar"]
+CMD ["java", "-jar", "Redstone.jar"]
