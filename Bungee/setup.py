@@ -11,7 +11,7 @@ def modifyConfig(expression, value):
 def main():
 
     mongoHosts = os.environ['MONGO_HOSTS'].split(',')
-    mongoDB = "mn2"
+    mongoDB = "minestack"
 
     client = MongoClient(mongoHosts)
     db = client[mongoDB]
