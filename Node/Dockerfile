@@ -19,9 +19,9 @@ ENV RABBITMQ_USERNAME guest
 ENV RABBITMQ_PASSWORD guest
 
 # Copy Jar File
-RUN mkdir /MN2
-ADD Redstone.jar /MN2/Redstone.jar
+RUN mkdir /minestack
+ADD Redstone.jar /minestack/Redstone.jar
 
 # Run
-WORKDIR /MN2
+WORKDIR /minestack
 CMD ["java", "-jar", "Redstone.jar"]

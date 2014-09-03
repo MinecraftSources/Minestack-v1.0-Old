@@ -25,13 +25,13 @@ ENV RABBITMQ_PASSWORD guest
 ENV MY_BUNGEE_ID NULL
 
 # Copy Run Files
-RUN mkdir /MN2
-ADD setup.py /MN2/setup.py
-ADD run.sh /MN2/run.sh
+RUN mkdir /minestack
+ADD setup.py /minestack/setup.py
+ADD run.sh /minestack/run.sh
 
 # Expose Port
 EXPOSE 25565
 
 # Run
-WORKDIR /MN2
+WORKDIR /minestack
 ENTRYPOINT ["sh", "run.sh"]
