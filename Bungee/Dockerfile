@@ -27,11 +27,12 @@ ENV MY_BUNGEE_ID NULL
 # Copy Run Files
 RUN mkdir /minestack
 ADD setup.py /minestack/setup.py
-ADD run.sh /minestack/run.sh
+#ADD run.sh /minestack/run.sh
 
 # Expose Port
 EXPOSE 25565
 
 # Run
 WORKDIR /minestack
-ENTRYPOINT ["sh", "run.sh"]
+#ENTRYPOINT ["sh", "run.sh"]
+ENTRYPOINT ["python", "-u", "setup.py"]

@@ -81,9 +81,13 @@ def main():
         print('No default server found')
         sys.exit(0)
 
-    os.system('touch start.sh')
-    os.system("echo '#!/bin/bash' >> start.sh")
-    os.system("echo 'java -XX:MaxPermSize=128M -Xmx1024m -jar BungeeCord.jar' >> start.sh")
+    #os.system('touch start.sh')
+    #os.system("echo '#!/bin/bash' >> start.sh")
+    #os.system("echo 'java -XX:MaxPermSize=128M -Xmx1024m -jar BungeeCord.jar' >> start.sh")
 
     os.system('ls -l')
+
+    os.system("chmod +x start.sh")
+    os.system("./start.sh")
+
 main()
