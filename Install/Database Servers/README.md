@@ -3,7 +3,7 @@ Database Node Setup
 
 ### Install MongoDB
 
-1. Create a /etc/yum.repos.d/mongodb.repo file to hold the MongoDB Repo configuration bellow
+1. Create a `/etc/yum.repos.d/mongodb.repo` file to hold the MongoDB Repo configuration bellow
 
     ```
     [mongodb]
@@ -19,7 +19,7 @@ Database Node Setup
     sudo yum install mongodb-org
     ```
     
-3. Edit MongoDB's configuration file (/etc/mongod.conf) to set the bind IP address to your private IP address.
+3. Edit MongoDB's configuration file `/etc/mongod.conf` to set the bind IP address to your private IP address.
 
     ```
     bind_ip=172.16.0.x
@@ -69,7 +69,7 @@ Database Node Setup
         sudo yum install rabbitmq-server-3.3.5-1.noarch.rpm
         ```
 
-3. Create a default file for rabbitmq /etc/default/rabbitmq-server
+3. Create a default file for rabbitmq `/etc/default/rabbitmq-server`
 
     ```
     ulimit -n 65535

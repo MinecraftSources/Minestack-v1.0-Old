@@ -19,7 +19,7 @@ These instructions assume your nodes are located on OVH's network please adjust 
     sudo reboot
     ```
     
-3. Edit eth1's configuration file to create a private network /etc/sysconfig/network-scripts/ifcfg-eth1
+3. Edit eth1's configuration file to create a private network `/etc/sysconfig/network-scripts/ifcfg-eth1`
 
     ```
     DEVICE=eth1
@@ -71,7 +71,7 @@ These instructions assume your nodes are located on OVH's network please adjust 
       sudo yum --enablerepo=elrepo-kernel install kernel-lt
       ```
       
-   3. Edit grub /boot/grub/grub.conf and change the default to the newly install kernel 
+   3. Edit grub `/boot/grub/grub.conf` and change the default to the newly install kernel 
 7. Reboot
 
     ```sh

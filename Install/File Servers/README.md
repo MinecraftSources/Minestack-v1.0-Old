@@ -18,7 +18,7 @@ File Server Setup
 
 3. Export Minestack file shares 
 
-    1. Edit /etc/exports
+    1. Edit `/etc/exports`
     
         ```
         /minestack/proxy           172.16.0.0/12(ro,sync,no_root_squash,no_subtree_check)
@@ -46,7 +46,7 @@ File Server Setup
 
 ### Bungee Configuration
 
-Upload a "bungee" folder to the /minestack/proxy directory and include a start.sh file as seen bellow
+Upload a "bungee" folder to the `/minestack/proxy` directory and include a start.sh file as seen bellow
 
 ```sh
 #!/bin/bash
