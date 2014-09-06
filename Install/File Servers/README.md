@@ -106,7 +106,7 @@ Upload a "bukkit" folder to the `/minestack/server` directory (include a .update
 java -XX:MaxPermSize=128M -Xmx$1m -jar spigot.jar
 ```
 
-use the server.properties shown bellow. Do NOT change the level-name or max players settings
+Use the server.properties shown bellow. Do NOT change the level-name or max players settings
 
 ```
 #Minecraft server properties

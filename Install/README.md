@@ -19,7 +19,13 @@ These instructions assume your nodes are located on OVH's network please adjust 
     sudo reboot
     ```
     
-3. Edit eth1's configuration file to create a private network `/etc/sysconfig/network-scripts/ifcfg-eth1`
+3. Install git
+
+    ```sh
+    sudo yum install git
+    ```
+    
+4. Edit eth1's configuration file to create a private network `/etc/sysconfig/network-scripts/ifcfg-eth1`
 
     ```
     DEVICE=eth1
@@ -29,13 +35,13 @@ These instructions assume your nodes are located on OVH's network please adjust 
     ONBOOT=yes 
     ```
 
-4. Bring up interface eth1
+5. Bring up interface eth1
 
     ```sh
     sudo ifup eth1
     ```
 
-5. Configure IPTables to allow all traffic going over the private network
+6. Configure IPTables to allow all traffic going over the private network
   1. Find the line number of the first reject statement. 
   
       ```sh
@@ -54,7 +60,7 @@ These instructions assume your nodes are located on OVH's network please adjust 
       sudo service iptables save
       ```
       
-6. Install Kernel 3.10
+7. Install Kernel 3.10
    1. Install ELRepo
    
       ```sh
@@ -72,10 +78,10 @@ These instructions assume your nodes are located on OVH's network please adjust 
       ```
       
    3. Edit grub `/boot/grub/grub.conf` and change the default to the newly install kernel 
-7. Reboot
+8. Reboot
 
     ```sh
     sudo reboot
     ```
     
-8. Continue to the node specific installation guides
+9. Continue to the node specific installation guides
