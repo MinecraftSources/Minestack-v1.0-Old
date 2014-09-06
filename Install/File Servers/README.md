@@ -53,7 +53,7 @@ Upload a "bungee" folder to the `/minestack/proxy` directory and include a start
 java -XX:MaxPermSize=128M -Xmx$1m -jar BungeeCord.jar
 ```
 
-Use the config.yml shown bellow
+Use the config.yml shown bellow. Do NOT change the host, query_port, default_server, fallback_server, connection_throttle, servers or ip_forward settings
 
 ```yaml
 groups:
@@ -95,4 +95,51 @@ servers:
     restricted: false
 ip_forward: true
 online_mode: true
+```
+
+### Bukkit/Spigot Configuration
+
+Upload a "bukkit" folder to the `/minestack/server` directory (include a .update-lock file if needed) and include a start.sh file as seen bellow
+
+```
+#!/bin/bash
+java -XX:MaxPermSize=128M -Xmx$1m -jar spigot.jar
+```
+
+use the server.properties shown bellow. Do NOT change the level-name or max players settings
+
+```
+#Minecraft server properties
+generator-settings=
+op-permission-level=4
+allow-nether=false
+level-name=levelname
+enable-query=false
+allow-flight=false
+announce-player-achievements=false
+server-port=25565
+level-type=DEFAULT
+enable-rcon=false
+level-seed=
+force-gamemode=false
+server-ip=
+max-build-height=256
+spawn-npcs=false
+white-list=false
+spawn-animals=false
+hardcore=false
+snooper-enabled=false
+online-mode=false
+resource-pack=
+pvp=false
+difficulty=1
+enable-command-block=true
+gamemode=2
+player-idle-timeout=0
+max-players=maxplayers
+spawn-monsters=false
+generate-structures=false
+view-distance=10
+motd=A Minecraft Server
+
 ```
