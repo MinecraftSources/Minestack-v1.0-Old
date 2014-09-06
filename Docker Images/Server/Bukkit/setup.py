@@ -54,7 +54,7 @@ def main():
         plugins.append(pluginDict)
 
     print('Copying Main Server files')
-    os.system('cp -R /mnt/minestack/server/* .')
+    os.system('cp -R /mnt/minestack/server/bukkit/* .')
 
     defaultWorld = None
     os.system('mkdir worlds')

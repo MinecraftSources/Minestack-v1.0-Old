@@ -49,7 +49,7 @@ def main():
         #    print('Loaded '+plugin['name']+' with config '+pluginConfig['name'])
 
     print('Copying Main Bungee files')
-    os.system('cp -R /mnt/minestack/bungee/* .')
+    os.system('cp -R /mnt/minestack/proxy/bungee/* .')
 
     os.system('mkdir plugins')
     os.system('mkdir tempPlugins')

@@ -66,7 +66,7 @@ Database Node Setup
     3. Install RabbitMQ
     
         ```
-        yum install rabbitmq-server-3.3.5-1.noarch.rpm
+        sudo yum install rabbitmq-server-3.3.5-1.noarch.rpm
         ```
 
 3. Create a default file for rabbitmq /etc/default/rabbitmq-server
