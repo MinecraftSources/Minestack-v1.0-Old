@@ -9,12 +9,12 @@ File Server Setup
     
 2. Start the NFS service and make sure it starts on boot
 
-```sh
-sudo service rpcbind start
-sudo service nfs start
-sudo chkconfig nfs on
-sudo rpcbind on
-```
+    ```sh
+    sudo service rpcbind start
+    sudo service nfs start
+    sudo chkconfig nfs on
+    sudo rpcbind on
+    ```
 
 3. Export Minestack file shares 
 
