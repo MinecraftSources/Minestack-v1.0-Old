@@ -19,7 +19,7 @@ def main():
     proxytypesCollection = db['proxytypes']
     pluginsCollection = db['plugins']
 
-    query = {"_id": ObjectId(os.environ['MY_BUNGEE_ID'])}
+    query = {"_id": ObjectId(os.environ['MY_PROXY_ID'])}
 
     proxy = proxiesCollection.find_one(query)
 
