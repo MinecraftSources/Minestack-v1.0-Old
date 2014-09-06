@@ -20,27 +20,27 @@ sudo rpcbind on
 
     1. Edit /etc/exports
     
-    ```
-    /minestack/proxy           172.16.0.0/12(ro,sync,no_root_squash,no_subtree_check)
-    /minestack/server           172.16.0.0/12(ro,sync,no_root_squash,no_subtree_check)
-    /minestack/plugins           172.16.0.0/12(ro,sync,no_root_squash,no_subtree_check)
-    /minestack/worlds           172.16.0.0/12(ro,sync,no_root_squash,no_subtree_check)
-    ```
+        ```
+        /minestack/proxy           172.16.0.0/12(ro,sync,no_root_squash,no_subtree_check)
+        /minestack/server           172.16.0.0/12(ro,sync,no_root_squash,no_subtree_check)
+        /minestack/plugins           172.16.0.0/12(ro,sync,no_root_squash,no_subtree_check)
+        /minestack/worlds           172.16.0.0/12(ro,sync,no_root_squash,no_subtree_check)
+        ```
     
     2. Create directories
     
-    ```sh
-    sudo mkdir -p /minestack/proxy
-    sudo mkdir -p /minestack/server
-    sudo mkdir -p /minestack/plugins
-    sudo mkdir -p /minestack/worlds
-    ```
+        ```sh
+        sudo mkdir -p /minestack/proxy
+        sudo mkdir -p /minestack/server
+        sudo mkdir -p /minestack/plugins
+        sudo mkdir -p /minestack/worlds
+        ```
     
     3. Export them
     
-    ```sh
-    sudo exportfs -a
-    ```
+        ```sh
+        sudo exportfs -a
+        ```
     
 4. Upload proxy, server, plugin and world files
 
