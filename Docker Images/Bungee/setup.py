@@ -33,7 +33,7 @@ def main():
 
     plugins = []
 
-    for pluginInfo in bungeetype['plugins']:
+    for pluginInfo in bungeetype['driver']['plugins']:
         plugin = pluginsCollection.find_one({"_id": pluginInfo['_id']})
         pluginConfig = None
         for config in plugin['configs']:

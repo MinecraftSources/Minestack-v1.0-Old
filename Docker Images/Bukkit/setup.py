@@ -42,7 +42,7 @@ def main():
         worlds.append(worldDict)
         print('Loaded '+world['name'])
 
-    for pluginInfo in servertype['plugins']:
+    for pluginInfo in servertype['driver']['plugins']:
         plugin = pluginsCollection.find_one({"_id": pluginInfo['_id']})
         pluginConfig = None
         for config in plugin['configs']:
