@@ -88,7 +88,14 @@ Database Node Setup
     sudo chkconfig rabbitmq-server on
     ```
 
-6. Modify IPTables
+6. Setup a RabbitMQ Account
+
+    ```
+    sudo rabbitmqctl add_user admin youradminpassword
+    sudo rabbitmqctl set_user_tags admin administrator
+    ```
+
+7. Modify IPTables
 
    1. Find the line number of the first reject statement. 
    
@@ -108,4 +115,6 @@ Database Node Setup
        sudo service iptables save
        ```
    
-7. Setup a MongoDB Replicaset and/or RabbitMQ Cluster is desired
+9. Go to http://yourserverip:15672 and login with the admin account. Then under the admin tab create a new user with access to the / virtual host.
+   
+8. Setup a MongoDB Replicaset and/or RabbitMQ Cluster is desired
