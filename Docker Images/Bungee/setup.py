@@ -15,25 +15,25 @@ def main():
 
     client = MongoClient(mongoHosts)
     db = client[mongoDB]
-    bungeeCollection = db['bungees']
-    bungeetypesCollection = db['bungeetypes']
+    proxiesCollection = db['proxies']
+    proxytypesCollection = db['proxytypes']
     pluginsCollection = db['plugins']
 
     query = {"_id": ObjectId(os.environ['MY_BUNGEE_ID'])}
 
-    bungee = bungeeCollection.find_one(query)
+    proxy = proxiesCollection.find_one(query)
 
-    query = {"_id": bungee['_proxytype']}
+    query = {"_id": proxy['_proxytype']}
 
-    bungeetype = bungeetypesCollection.find_one(query)
+    proxytype = proxytypesCollection.find_one(query)
 
-    if bungeetype is None:
-        print('No bungee type found')
+    if proxytype is None:
+        print('No proxy type found')
         sys.exit(0)
 
     plugins = []
 
-    for pluginInfo in bungeetype['driver']['plugins']:
+    for pluginInfo in proxytype['driver']['plugins']:
         plugin = pluginsCollection.find_one({"_id": pluginInfo['_id']})
         pluginConfig = None
         for config in plugin['configs']:
@@ -70,7 +70,7 @@ def main():
     os.system('ls -l plugins')
 
     defaultServer = None
-    for serverinfo in bungeetype['servertypes']:
+    for serverinfo in proxytype['servertypes']:
         if serverinfo['isDefault']:
             defaultServer = serverinfo
             break
