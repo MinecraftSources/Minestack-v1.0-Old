@@ -15,9 +15,8 @@ These instructions assume your nodes are located on OVH's network please adjust 
    ```
    sudo reboot
    ```
-3. Configure a private IP address for all your nodes.
+3. Edit eth1's configuration file to create a private network /etc/sysconfig/network-scripts/ifcfg-eth1
 ```
-/etc/sysconfig/network-scripts/ifcfg-eth1
 DEVICE=eth1
 BOOTPROTO=static
 IPADDR=172.16.0.x
